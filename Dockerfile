@@ -1,4 +1,4 @@
-FROM varlite/alerta-web:no-venv
+FROM python:3.8-slim-buster
 
 ENV PYTHONUNBUFFERED 1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
