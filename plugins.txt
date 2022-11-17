@@ -8,7 +8,6 @@ plugins/influxdb master
 plugins/logstash master
 plugins/mattermost master
 plugins/msteams master
-plugins/normalise master
 plugins/op5 master
 plugins/opsgenie master
 plugins/pagerduty master
