@@ -44,22 +44,23 @@ services:
 
 
   alerta:
-    image: varlite/alerta-web:files_baked_in
+    image: varlite/alerta-web:latest
     # volumes:
       # - $PWD/config/config.json:/web/config.json
       # - C:\Users\mchambers\git\alerta-contrib\plugins\normalise:/tmp/normalise
       # - C:\Users\mchambers\Desktop\alerta-temp\files\prometheus.py:/usr/local/lib/python3.8/site-packages/alerta/webhooks/prometheus.py
     ports:
       - 8081:8080
+      - 8082:2222
     depends_on:
       - db
     environment:
       # - DEBUG=1  # remove this line to turn DEBUG off
       - DATABASE_URL=postgres://postgres:postgres@db:5432/monitoring
-      # - AUTH_REQUIRED=True
-      # - ADMIN_USERS=admin@alerta.io,devops@alerta.io
-      # - ADMIN_PASSWORD=super-secret # default is "alerta"
-      # - ADMIN_KEY=demo-key  # assigned to first user in ADMIN_USERS
+      - AUTH_REQUIRED=True
+      - ADMIN_USERS=admin@alerta.io,devops@alerta.io
+      - ADMIN_PASSWORD=super-secret # default is "alerta"
+      - ADMIN_KEY=demo-key  # assigned to first user in ADMIN_USERS
       # - ADMIN_KEY_MAXAGE=500
       # - PLUGINS=normalise
     restart: always
