@@ -8,3 +8,9 @@ contrib/kubernetes/helm/alerta/charts
 .idea/*
 
 /.bundle/
+
+alerta.cert
+alerta.key
+alertad.conf
+prometheus.py
+GoogleIDPMetadata.xml

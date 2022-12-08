@@ -6,10 +6,11 @@ global:
 
   external_labels:
     monitor: codelab
-    environment: Production
+    # environment: Production
     service: Prometheus
     region: EU
     dc: eu-west-1
+    cluster_id: eu-mos-tf-region/eu-mos-tf-region/f7e3dd73-c47c-4cea-8461-c75cb06827e7
 
 alerting:
   alertmanagers:

@@ -33,6 +33,8 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+RUN echo "deb https://deb.debian.org/debian buster-backports main" | tee -a /etc/apt/sources.list >/dev/null
+
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
@@ -43,6 +45,7 @@ RUN apt-get update && \
     libldap2-dev \
     libpq-dev \
     libsasl2-dev \
+    openssh-server \
     postgresql-client \
     python3-dev \
     supervisor \
@@ -102,11 +105,21 @@ RUN chgrp -R 0 /app /web && \
     chmod -R g=u /app /web && \
     useradd -u 1001 -g 0 -d /app alerta
 
-USER 1001
+COPY alertad.conf /app/
+COPY --chown=alerta:alerta alertad.log /var/log/
+COPY prometheus.py /usr/local/lib/python3.8/site-packages/alerta/webhooks/
+COPY alerta.cert /etc/ssl/
+COPY alerta.key /etc/ssl/
+COPY GoogleIDPMetadata.xml /app/
+COPY sshd_config /etc/ssh
+
+RUN echo "root:Docker!" | chpasswd
+
+# USER 1001
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-EXPOSE 8080 1717
+EXPOSE 8080 1717 2222
 CMD ["supervisord", "-c", "/app/supervisord.conf"]
