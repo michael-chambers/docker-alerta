@@ -1,4 +1,16 @@
 #!/bin/bash
+
+ssh-keygen -A
+
+#prepare run dir
+if [ ! -d "/run/sshd" ]; then
+  mkdir -p /run/sshd
+fi
+
+/usr/sbin/sshd
+
+su - alerta
+
 set -e
 
 JINJA2="import os, sys, jinja2; sys.stdout.write(jinja2.Template(sys.stdin.read()).render(env=os.environ)+'\n')"
