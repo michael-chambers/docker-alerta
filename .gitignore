@@ -14,3 +14,4 @@ alerta.key
 alertad.conf
 prometheus.py
 GoogleIDPMetadata.xml
+alerta_normalise.py
