@@ -107,13 +107,14 @@ RUN chgrp -R 0 /app /web && \
 
 COPY alertad.conf /app/
 COPY --chown=alerta:alerta alertad.log /var/log/
-COPY prometheus.py /usr/local/lib/python3.8/site-packages/alerta/webhooks/
 COPY alerta.cert /etc/ssl/
 COPY alerta.key /etc/ssl/
 COPY GoogleIDPMetadata.xml /app/
 COPY sshd_config /etc/ssh
 
 RUN echo "root:Docker!" | chpasswd
+
+COPY alerta_normalise.py /usr/local/lib/python3.8/site-packages/
 
 # USER 1001
 
