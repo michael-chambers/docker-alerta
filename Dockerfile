@@ -114,7 +114,7 @@ COPY sshd_config /etc/ssh
 
 RUN echo "root:Docker!" | chpasswd
 
-USER 1001
+# USER 1001
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
