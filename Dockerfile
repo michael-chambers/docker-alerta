@@ -114,9 +114,7 @@ COPY sshd_config /etc/ssh
 
 RUN echo "root:Docker!" | chpasswd
 
-COPY alerta_normalise.py /usr/local/lib/python3.8/site-packages/
-
-# USER 1001
+USER 1001
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
