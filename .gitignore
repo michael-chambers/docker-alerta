@@ -15,3 +15,4 @@ alertad.conf
 prometheus.py
 GoogleIDPMetadata.xml
 alerta_normalise.py
+alerta_salesforce.py

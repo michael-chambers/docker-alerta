@@ -111,11 +111,15 @@ COPY alerta.cert /etc/ssl/
 COPY alerta.key /etc/ssl/
 COPY GoogleIDPMetadata.xml /app/
 COPY sshd_config /etc/ssh
+COPY session /tmp
+RUN chmod 766 /tmp/session
 
 RUN echo "root:Docker!" | chpasswd
 
 # USER 1001
 
+# delete this line later!!
+COPY alerta_salesforce.py /usr/local/lib/python3.8/site-packages/
 COPY docker-entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
