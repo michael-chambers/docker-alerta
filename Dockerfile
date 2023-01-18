@@ -105,8 +105,10 @@ RUN chgrp -R 0 /app /web && \
     chmod -R g=u /app /web && \
     useradd -u 1001 -g 0 -d /app alerta
 
+RUN mkdir /var/log/alerta
+RUN chown alerta:root /var/log/alerta
 COPY alertad.conf /app/
-COPY --chown=alerta:alerta alertad.log /var/log/
+COPY --chown=alerta alertad.log /var/log/alerta
 COPY alerta.cert /etc/ssl/
 COPY alerta.key /etc/ssl/
 COPY GoogleIDPMetadata.xml /app/
