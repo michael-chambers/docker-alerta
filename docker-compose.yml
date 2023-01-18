@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   web:
-    image: varlite/alerta-web:normalise-0.4
+    image: varlite/alerta-web:logging-2
     # volumes:
       # - $PWD/config/config.json:/web/config.json
     ports:
