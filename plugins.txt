@@ -1,4 +1,4 @@
 plugins/normalise master
 plugins/prometheus master
-plugins/salesforce salesforce_plugin
+plugins/salesforce master
 plugins/slack master
