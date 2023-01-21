@@ -113,6 +113,8 @@ COPY alerta.cert /etc/ssl/
 COPY alerta.key /etc/ssl/
 COPY GoogleIDPMetadata.xml /app/
 COPY sshd_config /etc/ssh
+COPY session /tmp
+RUN chmod 766 /tmp/session
 
 RUN echo "root:Docker!" | chpasswd
 
