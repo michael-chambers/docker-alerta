@@ -26,7 +26,7 @@ ENV HK_INFO_DELETE_HRS=12
 LABEL maintainer="Nick Satterly <nick.satterly@gmail.com>"
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.url="https://alerta.io" \
-      org.label-schema.vcs-url="https://github.com/alerta/docker-alerta" \
+      org.label-schema.vcs-url="https://github.com/michael-chambers/docker-alerta" \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0.0-rc.1"
@@ -76,11 +76,9 @@ RUN curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add -
 COPY requirements*.txt /app/
 # hadolint ignore=DL3013
 RUN pip install --no-cache-dir pip jinja2 && \
-    # python3 -m venv /venv && \
     pip install --no-cache-dir --upgrade setuptools && \
     pip install --no-cache-dir --requirement /app/requirements.txt && \
     pip install --no-cache-dir --requirement /app/requirements-docker.txt
-# ENV PATH $PATH:/venv/bin
 
 RUN pip install alerta==${CLIENT_VERSION} alerta-server==${SERVER_VERSION}
 COPY install-plugins.sh /app/install-plugins.sh
@@ -91,7 +89,7 @@ ADD https://github.com/alerta/alerta-webui/releases/download/v${WEBUI_VERSION}/a
 RUN tar zxvf /tmp/webui.tar.gz -C /tmp && \
     mv /tmp/dist /web
 
-ENV ALERTA_SVR_CONF_FILE /app/alertad.conf
+ENV ALERTA_SVR_CONF_FILE /app/conf/alertad.conf
 ENV ALERTA_CONF_FILE /app/alerta.conf
 ENV ALERTA_WEB_CONF_FILE /web/config.json
 
@@ -107,11 +105,8 @@ RUN chgrp -R 0 /app /web && \
 
 RUN mkdir /var/log/alerta
 RUN chown alerta:root /var/log/alerta
-COPY alertad.conf /app/
 COPY --chown=alerta alertad.log /var/log/alerta
-COPY alerta.cert /etc/ssl/
-COPY alerta.key /etc/ssl/
-COPY GoogleIDPMetadata.xml /app/
+
 COPY sshd_config /etc/ssh
 COPY session /tmp
 RUN chmod 766 /tmp/session
